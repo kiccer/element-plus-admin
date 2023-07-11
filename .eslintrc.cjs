@@ -6,8 +6,8 @@ module.exports = {
     },
 
     extends: [
-        'standard'
-        // '.eslintrc-auto-import.json'
+        'standard',
+        '.eslintrc-auto-import.json'
     ],
 
     parserOptions: {
