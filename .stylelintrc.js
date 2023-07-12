@@ -36,6 +36,8 @@ module.exports = {
         }],
         // 不要使用已被 autoprefixer 支持的浏览器前缀
         'media-feature-name-no-vendor-prefix': true,
+        'import-notation': 'string',
+        'scss/at-import-partial-extension': 'always',
         'at-rule-no-vendor-prefix': true,
         'selector-no-vendor-prefix': true,
         'property-no-vendor-prefix': true,
