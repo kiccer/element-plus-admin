@@ -29,7 +29,19 @@ export default defineConfig({
 
         // https://github.com/antfu/unplugin-vue-components#configuration
         Components({
-            resolvers: [ElementPlusResolver()]
+            resolvers: [
+                ElementPlusResolver(),
+                {
+                    type: 'component',
+                    resolve: name => {
+                        if (/^r-/.test(name)) {
+                            return {
+                                from: `@/components/r-common/${name}`
+                            }
+                        }
+                    }
+                }
+            ]
         })
     ],
     resolve: {
