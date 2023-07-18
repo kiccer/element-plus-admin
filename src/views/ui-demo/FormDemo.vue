@@ -35,6 +35,15 @@ const formConfig = computed(() => [
         slots: {
             append: () => '班'
         }
+    },
+    {
+        label: '班费',
+        key: 'classFee',
+        type: 'Input',
+        preset: 'amount',
+        rules: [
+            { require: true }
+        ]
     }
 ])
 

@@ -1,10 +1,11 @@
 <template>
     <div class="r-form">
         <el-form
+            v-bind="inheritProps"
             :model="props.modelValue"
         >
             <el-form-item
-                v-for="item in props.config"
+                v-for="item in formConfig"
                 :key="item.key"
                 :prop="item.key"
                 :label="item.label"
@@ -29,6 +30,7 @@
 <script lang="jsx" setup>
 import { get, set } from 'lodash-es'
 import importFormItemType from './r-form-item-types/index.jsx'
+import getPresetConfig from './r-form-item-presets/index.js'
 
 const props = defineProps({
     modelValue: {
@@ -38,8 +40,23 @@ const props = defineProps({
     config: {
         type: Array,
         default: () => []
+    },
+    inheritProps: {
+        type: Object,
+        default: () => ({})
     }
 })
+
+const formConfig = computedAsync(async () => {
+    for (const cfg of props.config) {
+        if (cfg.preset) {
+            const res = await getPresetConfig(cfg)
+            if (res instanceof Error) console.error(res)
+        }
+    }
+
+    return props.config
+}, [])
 
 function formItemCompProps (item) {
     return {
