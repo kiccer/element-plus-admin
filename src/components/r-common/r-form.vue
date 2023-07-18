@@ -62,7 +62,6 @@ function formItemCompProps (item) {
     return {
         modelValue: get(props.modelValue, item.key),
         'onUpdate:modelValue': val => {
-            console.log(val)
             set(props.modelValue, item.key, val)
         },
         ...item.props
