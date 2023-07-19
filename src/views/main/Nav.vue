@@ -74,6 +74,8 @@ function getMenuItems (parent, children = []) {
         font-size: 20px;
         text-align: center;
         line-height: $header-height;
+        background-color: #21252b;
+        color: #528bff;
     }
 
     > .el-menu {

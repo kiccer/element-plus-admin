@@ -28,8 +28,13 @@ import Nav from '@/views/main/Nav.vue'
     .header-container {
         width: calc(100vw - #{$nav-width});
         height: $header-height;
+        line-height: $header-height;
+        text-align: center;
+        font-size: 24px;
         position: fixed;
         left: $nav-width;
+        background-color: #21252b;
+        color: #707682;
     }
 
     .nav-container {

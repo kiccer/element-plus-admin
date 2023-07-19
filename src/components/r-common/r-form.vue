@@ -70,6 +70,15 @@ function formItemCompProps (item) {
     }
 }
 
+// 验证规则
+function validate (keys = []) {
+
+}
+
+defineExpose({
+    validate
+})
+
 </script>
 
 <style lang="scss" scoped>
