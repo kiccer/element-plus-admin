@@ -1,6 +1,7 @@
 <template>
     <div class="r-form">
         <el-form
+            ref="$form"
             v-bind="inheritProps"
             :model="props.modelValue"
         >
@@ -9,6 +10,7 @@
                 :key="item.key"
                 :prop="item.key"
                 :label="item.label"
+                :rules="item.rules"
             >
                 <component
                     v-bind="formItemCompProps(item)"
@@ -54,6 +56,13 @@ const formConfig = computedAsync(async () => {
             const res = await getPresetConfig(cfg)
             if (res instanceof Error) console.error(res)
         }
+
+        // 必填项默认提示
+        cfg.rules?.forEach(rule => {
+            if (rule.required) {
+                rule.message ??= `${cfg.label}不能为空`
+            }
+        })
     }
 
     return props.config
@@ -70,13 +79,14 @@ function formItemCompProps (item) {
     }
 }
 
-// 验证规则
-function validate (keys = []) {
-
-}
+const $form = ref(null)
 
 defineExpose({
-    validate
+    validate: (...args) => $form.value.validate(...args),
+    validateField: (...args) => $form.value.validateField(...args),
+    resetFields: (...args) => $form.value.resetFields(...args),
+    scrollToField: (...args) => $form.value.scrollToField(...args),
+    clearValidate: (...args) => $form.value.clearValidate(...args)
 })
 
 </script>

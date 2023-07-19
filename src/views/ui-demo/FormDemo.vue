@@ -1,9 +1,17 @@
 <template>
     <div class="page-container">
         <r-form
+            ref="$form"
             v-model="formData"
             :config="formConfig"
         />
+
+        <el-button
+            type="primary"
+            @click="submit"
+        >
+            提交
+        </el-button>
 
         <pre>formData: {{ formData }}</pre>
     </div>
@@ -17,7 +25,7 @@ const formConfig = computed(() => [
         key: 'name',
         type: 'Input',
         rules: [
-            { require: true }
+            { required: true }
         ]
     },
     {
@@ -25,7 +33,7 @@ const formConfig = computed(() => [
         key: 'birthday',
         type: 'DatePicker',
         rules: [
-            { require: true }
+            { required: true }
         ]
     },
     {
@@ -42,7 +50,7 @@ const formConfig = computed(() => [
         type: 'Input',
         preset: 'amount',
         rules: [
-            { require: true }
+            { required: true }
         ]
     },
     {
@@ -50,6 +58,16 @@ const formConfig = computed(() => [
         render: () => <div>测试render</div>
     }
 ])
+
+const $form = ref(null)
+
+async function submit () {
+    const isValid = await $form.value.validate()
+
+    if (isValid) {
+        console.log('submit', formData)
+    }
+}
 
 </script>
 
