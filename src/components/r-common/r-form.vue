@@ -2,15 +2,13 @@
     <div class="r-form">
         <el-form
             ref="$form"
-            v-bind="inheritProps"
+            v-bind="formProps"
             :model="props.modelValue"
         >
             <el-form-item
+                v-bind="formItemProps(item)"
                 v-for="item in formConfig"
                 :key="item.key"
-                :prop="item.key"
-                :label="item.label"
-                :rules="item.rules"
             >
                 <component
                     v-bind="formItemCompProps(item)"
@@ -68,6 +66,26 @@ const formConfig = computedAsync(async () => {
     return props.config
 }, [])
 
+const formProps = computed(() => {
+    return {
+        labelPosition: 'right',
+        labelWidth: 'auto',
+        contentWidth: '300px',
+        ...props.inheritProps
+    }
+})
+
+function formItemProps (item) {
+    return {
+        prop: item.key,
+        label: item.label,
+        rules: item.rules,
+        style: {
+            '--content-width': item.contentWidth ?? formProps.value.contentWidth ?? '300px'
+        }
+    }
+}
+
 // 异步组件属性
 function formItemCompProps (item) {
     return {
@@ -92,10 +110,20 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-:deep {
-    .el-form-item__label {
-        &::after {
-            content: "：";
+.r-form {
+    :deep {
+        .el-form-item__label {
+            &::after {
+                content: "：";
+            }
+        }
+
+        .el-form-item__content {
+            max-width: var(--content-width);
+
+            > .el-date-editor {
+                width: 100%;
+            }
         }
     }
 }

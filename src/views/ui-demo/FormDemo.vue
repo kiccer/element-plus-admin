@@ -62,7 +62,10 @@ const formConfig = computed(() => [
 const $form = ref(null)
 
 async function submit () {
-    const isValid = await $form.value.validate()
+    const isValid = await $form.value.validate().catch(err => {
+        console.error(err)
+        return false
+    })
 
     if (isValid) {
         console.log('submit', formData)

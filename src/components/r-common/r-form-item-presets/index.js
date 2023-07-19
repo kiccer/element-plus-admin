@@ -15,6 +15,15 @@ export default async function (cfg) {
     cfg.props ??= {}
     cfg.slots ??= {}
 
+    // 通用预设配置 (如果有就执行)
+    if (presets.common) {
+        const commonPresetFn = (await presets.common()).default
+        const res = await commonPresetFn(cfg)
+        if (res instanceof Error) {
+            return Error(`${cfg.type} 类型的通用预设配置 ${cfg.preset} 执行失败：${res.message}`)
+        }
+    }
+
     const presetFn = (await preset()).default
     const res = await presetFn(cfg)
 
