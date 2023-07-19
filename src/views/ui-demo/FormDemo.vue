@@ -44,6 +44,10 @@ const formConfig = computed(() => [
         rules: [
             { require: true }
         ]
+    },
+    {
+        label: '测试render',
+        render: () => <div>测试render</div>
     }
 ])
 

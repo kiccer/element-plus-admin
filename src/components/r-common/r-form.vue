@@ -47,6 +47,7 @@ const props = defineProps({
     }
 })
 
+// 配置信息二次处理
 const formConfig = computedAsync(async () => {
     for (const cfg of props.config) {
         if (cfg.preset) {
@@ -58,6 +59,7 @@ const formConfig = computedAsync(async () => {
     return props.config
 }, [])
 
+// 异步组件属性
 function formItemCompProps (item) {
     return {
         modelValue: get(props.modelValue, item.key),
