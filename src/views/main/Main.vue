@@ -35,12 +35,14 @@ import Nav from '@/views/main/Nav.vue'
         left: $nav-width;
         background-color: #21252b;
         color: #707682;
+        user-select: none;
     }
 
     .nav-container {
         width: $nav-width;
         height: 100vh;
         position: fixed;
+        user-select: none;
     }
 
     .bodyer-container {
