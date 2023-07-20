@@ -1,3 +1,5 @@
+import { defineAsyncComponent } from 'vue'
+
 const components = {
     AutoComplete: defineAsyncComponent(() => import('element-plus/lib/components/autocomplete/index.js')),
     Cascader: defineAsyncComponent(() => import('element-plus/lib/components/cascader/index.js')),
@@ -7,7 +9,8 @@ const components = {
     DateTimePicker: defineAsyncComponent(() => import('element-plus/lib/components/date-picker/index.js')),
     Input: defineAsyncComponent(() => import('element-plus/lib/components/input/index.js')),
     InputNumber: defineAsyncComponent(() => import('element-plus/lib/components/input-number/index.js')),
-    Radio: defineAsyncComponent(() => import('element-plus/lib/components/radio/index.js')),
+    // Radio: defineAsyncComponent(() => import('element-plus/lib/components/radio/index.js')),
+    Radio: defineAsyncComponent(() => import('@/components/r-common/r-radio.vue')),
     Rate: defineAsyncComponent(() => import('element-plus/lib/components/rate/index.js')),
     Select: defineAsyncComponent(() => import('element-plus/lib/components/select/index.js')),
     Slider: defineAsyncComponent(() => import('element-plus/lib/components/slider/index.js')),
@@ -27,7 +30,7 @@ const styles = {
     DateTimePicker: () => import('element-plus/lib/components/date-picker/style/index.js'),
     Input: () => import('element-plus/lib/components/input/style/index.js'),
     InputNumber: () => import('element-plus/lib/components/input-number/style/index.js'),
-    Radio: () => import('element-plus/lib/components/radio/style/index.js'),
+    // Radio: () => import('element-plus/lib/components/radio/style/index.js'),
     Rate: () => import('element-plus/lib/components/rate/style/index.js'),
     Select: () => import('element-plus/lib/components/select/style/index.js'),
     Slider: () => import('element-plus/lib/components/slider/style/index.js'),

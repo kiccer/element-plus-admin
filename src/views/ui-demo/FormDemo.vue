@@ -29,6 +29,20 @@ const formConfig = computed(() => [
         ]
     },
     {
+        label: '性别',
+        key: 'sex',
+        type: 'Radio',
+        props: {
+            options: [
+                { label: '男', value: 0 },
+                { label: '女', value: 1 }
+            ]
+        },
+        rules: [
+            { required: true }
+        ]
+    },
+    {
         label: '生日',
         key: 'birthday',
         type: 'DatePicker',
@@ -42,7 +56,10 @@ const formConfig = computed(() => [
         type: 'Input',
         slots: {
             append: () => '班'
-        }
+        },
+        rules: [
+            { required: true }
+        ]
     },
     {
         label: '班费',
@@ -56,6 +73,20 @@ const formConfig = computed(() => [
     {
         label: '测试render',
         render: () => <div>测试render</div>
+    },
+    {
+        label: '是否团员',
+        key: 'isLeagueMember',
+        type: 'Switch'
+    },
+    {
+        label: '入团时间',
+        key: 'leagueTime',
+        type: 'DatePicker',
+        hide: formData.isLeagueMember !== true,
+        rules: [
+            { required: true }
+        ]
     }
 ])
 

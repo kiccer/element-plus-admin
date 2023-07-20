@@ -12,7 +12,7 @@
             >
                 <component
                     v-bind="formItemCompProps(item)"
-                    :is="item.render ?? importFormItemType(item.type)"
+                    :is="item.render ?? formTypes(item.type)"
                 >
                     <template
                         v-for="[name, slot] in Object.entries(item.slots ?? {})"
@@ -29,8 +29,8 @@
 
 <script lang="jsx" setup>
 import { get, set } from 'lodash-es'
-import importFormItemType from './r-form-item-types/index.jsx'
-import getPresetConfig from './r-form-item-presets/index.js'
+import formTypes from './r-form-types.jsx'
+import getPresetConfig from './r-form-presets/index.js'
 
 const props = defineProps({
     modelValue: {
@@ -50,6 +50,8 @@ const props = defineProps({
 // 配置信息二次处理
 const formConfig = computedAsync(async () => {
     for (const cfg of props.config) {
+        if (cfg.hide) continue
+
         if (cfg.preset) {
             const res = await getPresetConfig(cfg)
             if (res instanceof Error) console.error(res)
@@ -63,8 +65,32 @@ const formConfig = computedAsync(async () => {
         })
     }
 
-    return props.config
+    return props.config.filter(cfg => !cfg.hide)
 }, [])
+
+// 另一种写法
+// const formConfig = computedAsync(async () => {
+//     return props.config.reduce(async (promiseList, cfg) => {
+//         const list = await promiseList
+
+//         if (cfg.hide) return list
+//         if (cfg.preset) {
+//             const res = await getPresetConfig(cfg)
+//             if (res instanceof Error) console.error(res)
+//         }
+
+//         // 必填项默认提示
+//         cfg.rules?.forEach(rule => {
+//             if (rule.required) {
+//                 rule.message ??= `${cfg.label}不能为空`
+//             }
+//         })
+
+//         list.push(cfg)
+
+//         return list
+//     }, Promise.resolve([]))
+// }, [])
 
 const formProps = computed(() => {
     return {
