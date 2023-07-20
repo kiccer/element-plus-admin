@@ -5,7 +5,7 @@ export default async function (cfg) {
     let isFocus = false
 
     cfg.slots.append ??= () => '元'
-    cfg.props.parser ??= str => ~~(numeral(str).value() * 100)
+    cfg.props.parser ??= str => String(~~(numeral(str).value() * 100))
     cfg.props.formatter ??= num => {
         if (['', null, undefined, NaN].includes(num)) return ''
         if (isFocus) return target.value
