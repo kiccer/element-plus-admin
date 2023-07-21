@@ -1,30 +1,30 @@
 <template>
-    <div class="r-form">
-        <el-form
-            ref="$form"
-            v-bind="formProps"
-            :model="props.modelValue"
+    <el-form
+        ref="$form"
+        label-position="right"
+        label-width="auto"
+        :model="props.modelValue"
+        :content-width="props.contentWidth"
+    >
+        <el-form-item
+            v-bind="formItemProps(item)"
+            v-for="item in formConfig"
+            :key="item.key"
         >
-            <el-form-item
-                v-bind="formItemProps(item)"
-                v-for="item in formConfig"
-                :key="item.key"
+            <component
+                v-bind="formItemCompProps(item)"
+                :is="item.render ?? formTypes(item.type)"
             >
-                <component
-                    v-bind="formItemCompProps(item)"
-                    :is="item.render ?? formTypes(item.type)"
+                <template
+                    v-for="[name, slot] in Object.entries(item.slots ?? {})"
+                    :key="name"
+                    #[name]
                 >
-                    <template
-                        v-for="[name, slot] in Object.entries(item.slots ?? {})"
-                        :key="name"
-                        #[name]
-                    >
-                        <component :is="slot" />
-                    </template>
-                </component>
-            </el-form-item>
-        </el-form>
-    </div>
+                    <component :is="slot" />
+                </template>
+            </component>
+        </el-form-item>
+    </el-form>
 </template>
 
 <script lang="jsx" setup>
@@ -41,9 +41,9 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
-    inheritProps: {
-        type: Object,
-        default: () => ({})
+    contentWidth: {
+        type: String,
+        default: '300px'
     }
 })
 
@@ -92,22 +92,13 @@ const formConfig = computedAsync(async () => {
 //     }, Promise.resolve([]))
 // }, [])
 
-const formProps = computed(() => {
-    return {
-        labelPosition: 'right',
-        labelWidth: 'auto',
-        contentWidth: '300px',
-        ...props.inheritProps
-    }
-})
-
 function formItemProps (item) {
     return {
         prop: item.key,
         label: item.label,
         rules: item.rules,
         style: {
-            '--content-width': item.contentWidth ?? formProps.value.contentWidth ?? '300px'
+            '--content-width': item.contentWidth ?? props.contentWidth
         }
     }
 }
@@ -136,20 +127,18 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-.r-form {
-    :deep {
-        .el-form-item__label {
-            &::after {
-                content: "：";
-            }
+:deep {
+    .el-form-item__label {
+        &::after {
+            content: "：";
         }
+    }
 
-        .el-form-item__content {
-            max-width: var(--content-width);
+    .el-form-item__content {
+        max-width: var(--content-width);
 
-            > .el-date-editor {
-                width: 100%;
-            }
+        > .el-date-editor {
+            width: 100%;
         }
     }
 }

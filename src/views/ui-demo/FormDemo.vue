@@ -4,6 +4,7 @@
             ref="$form"
             v-model="formData"
             :config="formConfig"
+            :disabled="$formDisabled"
         />
 
         <el-button
@@ -91,8 +92,12 @@ const formConfig = computed(() => [
 ])
 
 const $form = ref(null)
+const $formDisabled = ref(true)
 
 async function submit () {
+    if ($formDisabled.value) return
+    $formDisabled.value = true
+
     const isValid = await $form.value.validate().catch(err => {
         console.error(err)
         return false
@@ -101,6 +106,8 @@ async function submit () {
     if (isValid) {
         console.log('submit', formData)
     }
+
+    $formDisabled.value = false
 }
 
 </script>
