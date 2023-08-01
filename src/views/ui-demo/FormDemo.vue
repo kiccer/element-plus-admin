@@ -88,11 +88,19 @@ const formConfig = computed(() => [
         rules: [
             { required: true }
         ]
+    },
+    {
+        label: '一寸照',
+        key: 'photo',
+        type: 'Upload',
+        rules: [
+            { required: true }
+        ]
     }
 ])
 
 const $form = ref(null)
-const $formDisabled = ref(true)
+const $formDisabled = ref(false)
 
 async function submit () {
     if ($formDisabled.value) return

@@ -18,7 +18,8 @@ const components = {
     TimePicker: defineAsyncComponent(() => import('element-plus/es/components/time-picker/index.mjs')),
     TimeSelect: defineAsyncComponent(() => import('element-plus/es/components/time-picker/index.mjs')),
     Transfer: defineAsyncComponent(() => import('element-plus/es/components/transfer/index.mjs')),
-    Upload: defineAsyncComponent(() => import('element-plus/es/components/upload/index.mjs'))
+    // Upload: defineAsyncComponent(() => import('element-plus/es/components/upload/index.mjs'))
+    Upload: defineAsyncComponent(() => import('@/components/r-common/r-upload.vue'))
 }
 
 const styles = {
@@ -37,8 +38,8 @@ const styles = {
     Switch: () => import('element-plus/es/components/switch/style/index.mjs'),
     TimePicker: () => import('element-plus/es/components/time-picker/style/index.mjs'),
     TimeSelect: () => import('element-plus/es/components/time-picker/style/index.mjs'),
-    Transfer: () => import('element-plus/es/components/transfer/style/index.mjs'),
-    Upload: () => import('element-plus/es/components/upload/style/index.mjs')
+    Transfer: () => import('element-plus/es/components/transfer/style/index.mjs')
+    // Upload: () => import('element-plus/es/components/upload/style/index.mjs')
 }
 
 export default function importFormItemType (type) {

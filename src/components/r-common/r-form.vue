@@ -127,7 +127,7 @@ defineExpose({
 </script>
 
 <style lang="scss" scoped>
-:deep {
+:deep() {
     .el-form-item__label {
         &::after {
             content: "：";
